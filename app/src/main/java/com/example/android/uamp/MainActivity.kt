@@ -28,22 +28,15 @@ import com.example.android.uamp.media.MusicService
 import com.example.android.uamp.utils.Event
 import com.example.android.uamp.utils.InjectorUtils
 import com.example.android.uamp.viewmodels.MainActivityViewModel
-import com.google.android.gms.cast.framework.CastButtonFactory
-import com.google.android.gms.cast.framework.CastContext
 
 class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainActivityViewModel> {
         InjectorUtils.provideMainActivityViewModel(this)
     }
-    private var castContext: CastContext? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Initialize the Cast context. This is required so that the media route button can be
-        // created in the AppBar
-        castContext = CastContext.getSharedInstance(this)
 
         setContentView(R.layout.activity_main)
 
@@ -91,11 +84,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.main_activity_menu, menu)
-
-        /**
-         * Set up a MediaRouteButton to allow the user to control the current media playback route
-         */
-        CastButtonFactory.setUpMediaRouteButton(this, menu, R.id.media_route_menu_item)
         return true
     }
 
